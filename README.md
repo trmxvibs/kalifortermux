@@ -15,14 +15,17 @@ Before running the script, ensure you have the following prerequisites:
 1. Open Termux on your Android device.
 
 2. Grant storage access to Termux using the following command:
+   `termux-setup-storage`
+3. first install the `git` package.
+   $ `pkg install git -y`
 
-3. Install the `wget` package if it's not already installed:
+5. Install the `wget` package if it's not already installed:
 
-4. Download the Kali Nethunter installation script:
+6. Download the Kali Nethunter installation script:
 
-5. Make the script executable:
+7. Make the script executable:
 
-6. Execute the installation script:
+8. Execute the installation script:
 
 Follow any prompts or instructions that appear during the installation process.
 
