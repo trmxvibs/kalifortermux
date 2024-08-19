@@ -1,31 +1,52 @@
-# Kali Nethunter Installation Script for Termux
+![image](https://github.com/user-attachments/assets/b9f9cb33-697c-4923-9fec-156558006e17)
+
+###  Installation  for Termux
 
 This repository contains a simple bash script to automate the installation process of Kali Nethunter in Termux, an Android terminal emulator and Linux environment app.
 
-## Prerequisites
+## $${\color{red}Prerequisites}$$
 
 Before running the script, ensure you have the following prerequisites:
 
-- Termux app installed on your Android device
-- Internet connection
-- Sufficient storage space available on your device
+- **Termux** [https://f-droid.org/repo/com.termux_1020.apk] app installed on your Android device.
+- ***Internet connection***
+- ***Sufficient storage space available on your device.*** `1GB to 8GB`
 
-## Installation
+## $${\color{red}Installation}$$
 
 1. Open Termux on your Android device.
 
-2. Grant storage access to Termux using the following command:
-   `termux-setup-storage`
-3. first install the `git` package.
-   $ `pkg install git -y`
+2. Grant storage access to Termux using the following command.
+      ```bash
+   termux-setup-storage
+      ```
+4. first install the `git` package.
+```bash
+pkg install git -y
+```
 
-5. Install the `wget` package if it's not already installed:
+6. Install the `wget` package if it's not already installed.
 
-6. Download the Kali Nethunter installation script:
+   ```bash
+   pkg install wget
+   ```
 
-7. Make the script executable:
+8. Download the Kali Nethunter installation script.
 
-8. Execute the installation script:
+   ```bash
+   git clone https://github.com/trmxvibs/kalifortermux && cd kalifortermux 
+
+9. Make the script executable.
+```bash
+chmod +x kali.sh
+```
+
+10. Execute the installation scrip.
+
+    
+```bash
+bash kali.sh
+```
 
 Follow any prompts or instructions that appear during the installation process.
 
