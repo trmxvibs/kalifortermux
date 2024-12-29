@@ -60,4 +60,4 @@ Contributions to improve this script or the README file are welcome! If you have
 
 ## License
 
-This script is licensed under the [MIT License](LICENSE).
+**This script is licensed under the [MIT License](LICENSE).**
