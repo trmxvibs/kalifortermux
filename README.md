@@ -52,7 +52,7 @@ Follow any prompts or instructions that appear during the installation process.
 
 ## Disclaimer
 
-This script is provided as-is and without warranty. Use it at your own risk. Make sure to review and understand the commands in the script before executing it. Always download scripts from trusted sources.
+This script is provided as-is and without warranty. Use it at your own risk. Make sure to review and understand the commands in the script before executing it. Always download scripts from trusted sources..
 
 ## Contributing
 
