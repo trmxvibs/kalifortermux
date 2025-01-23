@@ -82,14 +82,11 @@ echo -e "${BLUE}[*]${GREEN} Executing the installation script..."
 loading_bar
 ./install-nethunter-termux
 
+# Fix for the new update
+echo -e "${BLUE}[*]${GREEN} Creating chroot directory and moving files..."
+mkdir chroot && mv kali-arm64 chroot
+./install-nethunter-termux
+
 echo -e "${GREEN}[*]${BLUE} Kali Nethunter installation completed successfully!"
 spinning_loader
 #end
-
-
-
-
-
-
-
-
