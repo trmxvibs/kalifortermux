@@ -28,7 +28,7 @@ function setup () {
     fi
 
  
-    printf "#${blue} [*] Find OK, script continuing...\n"
+    printf "#${blue} [*] Find OK, Installation continuing...\n"
     sleep 10
 }
 
