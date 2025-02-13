@@ -2,41 +2,22 @@
 # Modify by Lokesh Kumar
 # Install kali nethunter in termux without root and without any error
 # this tool  maybe resolve error like kex server, dpkg, chroot, line 361
-function setup () {
-    pkg install wget -y
-    cd $HOME
-    clear
-    sleep 1
-    printf "${blue} [*] Please Allow Files ${red}Permission\n"
-    sleep 10
-    printf "#${red} [*] If script does not ask for file permission, ${green}setup manually\n"
-        termux-setup-storage
-    sleep 5  
-    
-    if [ ! -d "/storage/emulated/0" ] && [ ! -d "$HOME/storage/shared" ]; then
-        printf "#${red} [!] File permission not granted. Exiting...\n"
-        exit 1
-    fi
-    
-    cd storage || { 
-        printf "#${red} [!] Failed to access storage directory. Exiting...\n"
-        exit 1
-    }
 
-    if [ "$PWD" != "$HOME/storage" ]; then
-        printf "#${red} [!] User is not in the correct directory. Exiting...\n"
-        exit 1
-    fi
-
- 
-    printf "#${blue} [*] Find OK, Installation continuing...\n"
-    sleep 10
-}
 
 VERSION=2024091801
 BASE_URL=https://image-nethunter.kali.org/nethunter-fs/kali-daily
 USERNAME=kali
 
+function check_directory() {
+    required_dir="/data/data/com.termux/files/home/storage"
+
+    if [[ "$PWD" == "$required_dir" ]]; then
+        printf "\n${green}[*] Directory check passed! Script running...\n"
+    else
+        printf "\n${red}[!] I required $required_dir\n"
+        exit 1
+    fi
+}
 
 
 function unsupported_arch() {
@@ -466,11 +447,11 @@ blue='\033[1;34m'
 light_cyan='\033[1;96m'
 reset='\033[0m'
 
-cd "$HOME"
+
 print_banner
 get_arch
 set_strings
-setup
+check_directory
 prepare_fs
 check_dependencies
 get_rootfs
@@ -509,4 +490,4 @@ sleep 1
 printf "${blue}[*]     Bhai ne bola youtube khol ke channel par le jaane ka ${red}SOORY ${reset}\n\n"
 sleep 3
 termux-open https://youtube.com/@termuxvibes?sub_confirmation=1
-sleep 300
+sleep 30
