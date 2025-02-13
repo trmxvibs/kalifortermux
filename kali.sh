@@ -507,4 +507,6 @@ sleep 3
 printf "${red}[+]      BHAI KA CHANNEL JOIN KIYA ??? ${reset}\n\n"
 sleep 1
 printf "${blue}[*]     Bhai ne bola youtube khol ke channel par le jaane ka ${red}SOORY ${reset}\n\n"
+sleep 3
 termux-open https://youtube.com/@termuxvibes?sub_confirmation=1
+sleep 300
