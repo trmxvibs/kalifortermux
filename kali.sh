@@ -2,29 +2,6 @@
 # Modify by Lokesh Kumar
 # Install kali nethunter in termux without root and without any error
 # this tool  maybe resolve error like kex server, dpkg, chroot, line 361
-function move_and_run() {
-    required_dir="/data/data/com.termux/files/home/storage"
-
-    # Agar script already storage directory me hai, toh directly run kare
-    if [[ "$PWD" == "$required_dir" ]]; then
-        printf "\n[*] Script is already in $required_dir. Running...\n"
-    else
-        printf "\n[!] Moving script to $required_dir...\n"
-        
-        # Move current directory to required directory
-        mv "$PWD" "$required_dir" 2>/dev/null
-        
-        # Agar move successful hua toh new directory me enter kar ke script run kare
-        new_dir="$required_dir/$(basename "$PWD")"
-        if [[ -d "$new_dir" ]]; then
-            cd "$new_dir" || exit 1
-            printf "\n[*] Successfully moved. Running script...\n"
-        else
-            printf "\n[!] Failed to move script. Exiting...\n"
-            exit 1
-        fi
-    fi
-}
 
 VERSION=2024091801
 BASE_URL=https://image-nethunter.kali.org/nethunter-fs/kali-daily
@@ -473,7 +450,6 @@ move_and_run
 print_banner
 get_arch
 set_strings
-check_directory
 prepare_fs
 check_dependencies
 get_rootfs
