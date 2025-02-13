@@ -421,7 +421,7 @@ function print_banner() {
     printf "${blue}##                                              ##\n"
     printf "${blue}####  ############# NetHunter ####################${reset}\n\n"
     printf "${red} ++++++ SCRIPT MODIFY BY LOKESH KUMAR  +++++\n"
-    printf "#${green}[*]>>>> YOUTUBE :- Https://youtube.com/@termuxvibes\n"
+    printf "${green}[*]>>>> YOUTUBE :- Https://youtube.com/@termuxvibes\n"
 }
 
 
