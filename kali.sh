@@ -1,6 +1,7 @@
 #!/data/data/com.termux/files/usr/bin/bash -e
-#Modify by Lokesh Kumar
+# Modify by Lokesh Kumar
 # Install kali nethunter in termux without root and without any error
+# this tool  maybe resolve error like kex server, dpkg, chroot, line 361
 function setup () {
     pkg install wget -y
     cd $HOME
