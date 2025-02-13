@@ -1,0 +1,38 @@
+# tool made by lokesh kumar
+# Kali configuration files
+# 13/02/2025 
+# YOUTUBE :-- https://youtube.com/@termuxvibes
+
+# Define Colors
+RED='\e[91m'
+GREEN='\e[92m'
+YELLOW='\e[93m'
+BLUE='\e[94m'
+MAGENTA='\e[95m'
+CYAN='\e[96m'
+RESET='\e[0m'
+
+# Clear Screen
+clear
+
+function banner () {
+echo -e "${CYAN}======================================="
+echo -e "${YELLOW}        Nethunter_Installer        "
+echo -e "${CYAN}======================================="
+echo -e "${GREEN}  Coded by: ${MAGENTA}Lokesh Kumar"
+echo -e "${BLUE}  YouTube: ${RED}https://youtube.com/@termuxvibes"
+echo -e "${CYAN}=======================================${RESET}"
+sleep 2
+}
+banner
+termux-setup-storage 
+mv kali.sh /data/data/com.termux/files/home/storage
+chmod +x /data/data/com.termux/files/home/storage/kali.sh
+bash /data/data/com.termux/files/home/storage/kali.sh
+rm -rf /data/data/com.termux/files/home/storage/kali.sh
+cd ..
+rm -rf kalifortermux 
+banner
+echo ${BLUE}"Nethunter Installed successful"
+sleep 3 
+clear 
