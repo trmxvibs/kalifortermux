@@ -1,7 +1,39 @@
 #!/data/data/com.termux/files/usr/bin/bash -e
+#Modify by Lokesh Kumar
+# Install kali nethunter in termux without root and without any error
+function setup () {
+    pkg install wget -y
+    cd $HOME
+    clear
+    sleep 1
+    printf "${blue} [*] Please Allow Files ${red}Permission\n"
+    sleep 10
+    printf "#${red} [*] If script does not ask for file permission, ${green}setup manually\n"
+        termux-setup-storage
+    sleep 5  
+    
+    if [ ! -d "/storage/emulated/0" ] && [ ! -d "$HOME/storage/shared" ]; then
+        printf "#${red} [!] File permission not granted. Exiting...\n"
+        exit 1
+    fi
+    
+    cd storage || { 
+        printf "#${red} [!] Failed to access storage directory. Exiting...\n"
+        exit 1
+    }
+
+    if [ "$PWD" != "$HOME/storage" ]; then
+        printf "#${red} [!] User is not in the correct directory. Exiting...\n"
+        exit 1
+    fi
+
+ 
+    printf "#${blue} [*] Find OK, script continuing...\n"
+    sleep 10
+}
 
 VERSION=2024091801
-BASE_URL=https://kali.download/nethunter-images/current/rootfs
+BASE_URL=https://image-nethunter.kali.org/nethunter-fs/kali-daily
 USERNAME=kali
 
 
@@ -103,8 +135,8 @@ function set_strings() {
     ####
 
 
-    CHROOT=chroot/kali-${SYS_ARCH}
-    IMAGE_NAME=kali-nethunter-rootfs-${wimg}-${SYS_ARCH}.tar.xz
+    CHROOT=kali-${SYS_ARCH}
+    IMAGE_NAME=kali-nethunter-daily-dev-rootfs-${wimg}-${SYS_ARCH}.tar.xz
     SHA_NAME=${IMAGE_NAME}.sha512sum
 }    
 
@@ -171,7 +203,29 @@ function get_rootfs() {
     fi
     printf "${blue}[*] Downloading rootfs...${reset}\n\n"
     get_url
-    wget "${EXTRA_ARGS}" --continue "${ROOTFS_URL}"
+    wget --continue "${ROOTFS_URL}"
+}
+
+function check_sha_url() {
+    if ! curl --head --silent --fail "${SHA_URL}" > /dev/null; then
+        echo "[!] SHA_URL does not exist or is unreachable"
+        return 1
+    fi
+    return 0
+}
+
+function verify_sha() {
+    if [ -z $KEEP_IMAGE ]; then
+        printf "\n${blue}[*] Verifying integrity of rootfs...${reset}\n\n"
+        if [ -f "${SHA_NAME}" ]; then
+            sha512sum -c "$SHA_NAME" || {
+                printf "${red} Rootfs corrupted. Please run this installer again or download the file manually\n${reset}"
+                exit 1
+            }
+        else
+            echo "[!] SHA file not found. Skipping verification..."    
+        fi    
+    fi
 }
 
 function get_sha() {
@@ -180,19 +234,15 @@ function get_sha() {
         get_url
         if [ -f "${SHA_NAME}" ]; then
             rm -f "${SHA_NAME}"
+        fi        
+        if check_sha_url; then
+            echo "[+] SHA_URL exists. Proceeding with download..."
+            wget --continue "${SHA_URL}"
+            verify_sha
+        else
+            echo "[!] SHA_URL does not exist. Skipping download."
         fi
-        wget "${EXTRA_ARGS}" --continue "${SHA_URL}"
-    fi
-}
-
-function verify_sha() {
-    if [ -z $KEEP_IMAGE ]; then
-        printf "\n${blue}[*] Verifying integrity of rootfs...${reset}\n\n"
-        sha512sum -c "$SHA_NAME" || {
-            printf "${red} Rootfs corrupted. Please run this installer again or download the file manually\n${reset}"
-            exit 1
-        }
-    fi
+    fi        
 }
 
 function extract_rootfs() {
@@ -273,6 +323,11 @@ EOF
    
 }
 
+function check_kex() {
+    if [ "$wimg" = "nano" ] || [ "$wimg" = "minimal" ]; then
+        nh sudo apt update && nh sudo apt install -y tightvncserver kali-desktop-xfce
+    fi
+}
 function create_kex_launcher() {
     KEX_LAUNCHER=${CHROOT}/usr/bin/kex
     cat > $KEX_LAUNCHER <<- EOF
@@ -384,16 +439,18 @@ function print_banner() {
     clear
     printf "${blue}##################################################\n"
     printf "${blue}##                                              ##\n"
-    printf "${blue}##  88      a8P         db        88        88  ##\n"
+    printf "${green}##  88      a8P         db        88        88  ##\n"
     printf "${blue}##  88    .88'         d88b       88        88  ##\n"
-    printf "${blue}##  88   88'          d8''8b      88        88  ##\n"
-    printf "${blue}##  88 d88           d8'  '8b     88        88  ##\n"
-    printf "${blue}##  8888'88.        d8YaaaaY8b    88        88  ##\n"
-    printf "${blue}##  88P   Y8b      d8''''''''8b   88        88  ##\n"
+    printf "${red}##  88   88'          d8''8b      88        88  ##\n"
+    printf "${red}##  88 d88           d8'  '8b     88        88  ##\n"
+    printf "${red}##  8888'88.        d8YaaaaY8b    88        88  ##\n"
+    printf "${red}##  88P   Y8b      d8''''''''8b   88        88  ##\n"
     printf "${blue}##  88     '88.   d8'        '8b  88        88  ##\n"
-    printf "${blue}##  88       Y8b d8'          '8b 888888888 88  ##\n"
+    printf "${red}##  88       Y8b d8'          '8b 888888888 88  ##\n"
     printf "${blue}##                                              ##\n"
     printf "${blue}####  ############# NetHunter ####################${reset}\n\n"
+    printf "${red} ++++++ SCRIPT MODIFY BY LOKESH KUMAR  +++++\n"
+    printf "#${green}[*]>>>> YOUTUBE :- Https://youtube.com/@termuxvibes\n"
 }
 
 
@@ -408,23 +465,15 @@ blue='\033[1;34m'
 light_cyan='\033[1;96m'
 reset='\033[0m'
 
-EXTRA_ARGS=""
-if [[ ! -z $1 ]]; then
-    EXTRA_ARGS=$1
-    if [[ $EXTRA_ARGS != "--no-check-certificate" ]]; then
-        EXTRA_ARGS=""
-    fi
-fi
-
 cd "$HOME"
 print_banner
 get_arch
 set_strings
+setup
 prepare_fs
 check_dependencies
 get_rootfs
 get_sha
-verify_sha
 extract_rootfs
 create_launcher
 cleanup
@@ -433,10 +482,12 @@ printf "\n${blue}[*] Configuring NetHunter for Termux ...\n"
 fix_profile_bash
 fix_resolv_conf
 fix_sudo
+check_kex
 create_kex_launcher
 fix_uid
 
 print_banner
+sleep 5
 printf "${green}[=] Kali NetHunter for Termux installed successfully${reset}\n\n"
 printf "${green}[+] To start Kali NetHunter, type:${reset}\n"
 printf "${green}[+] nethunter             # To start NetHunter CLI${reset}\n"
@@ -451,3 +502,8 @@ printf "${green}[+] nethunter -r          # To run NetHunter as root${reset}\n"
 #printf "${green}[+] nethunter -r kex kill # To stop all NetHunter GUI sessions${reset}\n"
 #printf "${green}[+] nethunter -r kex <command> # Run command in NetHunter env as root${reset}\n"
 printf "${green}[+] nh                    # Shortcut for nethunter${reset}\n\n"
+sleep 3
+printf "${red}[+]      BHAI KA CHANNEL JOIN KIYA ??? ${reset}\n\n"
+sleep 1
+printf "${blue}[*]     Bhai ne bola youtube khol ke channel par le jaane ka ${red}SOORY ${reset}\n\n"
+termux-open https://youtube.com/@termuxvibes?sub_confirmation=1
