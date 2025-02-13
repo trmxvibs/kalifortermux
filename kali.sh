@@ -2,21 +2,12 @@
 # Modify by Lokesh Kumar
 # Install kali nethunter in termux without root and without any error
 # this tool  maybe resolve error like kex server, dpkg, chroot, line 361
+#!/data/data/com.termux/files/usr/bin/bash -e
 
 VERSION=2024091801
 BASE_URL=https://image-nethunter.kali.org/nethunter-fs/kali-daily
 USERNAME=kali
 
-function check_directory() {
-    required_dir="/data/data/com.termux/files/home/storage"
-
-    if [[ "$PWD" == "$required_dir" ]]; then
-        printf "\n${green}[*] Directory check passed! Script running...\n"
-    else
-        printf "\n${red}[!] I required $required_dir\n"
-        exit 1
-    fi
-}
 
 
 function unsupported_arch() {
@@ -417,8 +408,7 @@ function fix_uid() {
 }
 
 function print_banner() {
-    clear
-    printf "${blue}##################################################\n"
+     printf "${blue}##################################################\n"
     printf "${blue}##                                              ##\n"
     printf "${green}##  88      a8P         db        88        88  ##\n"
     printf "${blue}##  88    .88'         d88b       88        88  ##\n"
@@ -446,7 +436,7 @@ blue='\033[1;34m'
 light_cyan='\033[1;96m'
 reset='\033[0m'
 
-move_and_run
+cd "$HOME"
 print_banner
 get_arch
 set_strings
@@ -467,7 +457,6 @@ create_kex_launcher
 fix_uid
 
 print_banner
-sleep 5
 printf "${green}[=] Kali NetHunter for Termux installed successfully${reset}\n\n"
 printf "${green}[+] To start Kali NetHunter, type:${reset}\n"
 printf "${green}[+] nethunter             # To start NetHunter CLI${reset}\n"
@@ -488,4 +477,14 @@ sleep 1
 printf "${blue}[*]     Bhai ne bola youtube khol ke channel par le jaane ka ${red}SOORY ${reset}\n\n"
 sleep 3
 termux-open https://youtube.com/@termuxvibes?sub_confirmation=1
-sleep 30
+sleep 10
+
+
+
+
+
+
+
+
+
+
