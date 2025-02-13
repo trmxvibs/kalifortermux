@@ -33,6 +33,6 @@ rm -rf /data/data/com.termux/files/home/storage/kali.sh
 cd ..
 rm -rf kalifortermux 
 banner
-echo "${BLUE} Nethunter Installed successful"
+echo -e "${BLUE} Nethunter Installed successful"
 sleep 3 
 clear 
