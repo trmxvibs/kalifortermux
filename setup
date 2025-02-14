@@ -38,11 +38,24 @@ bash /data/data/com.termux/files/home/storage/kali.sh
 clear
 sleep 10
 }
-# clear screen
+function updatekali(){
+sudo apt-get update -y
+clear
+echo -e "${red} Kali Package Update | TRY TO FULL UPGRADE "
+sleep 5
+sudo apt-get full-upgrade -y
+clear
+echo -e "${red} [*] FULL UPGRADE PROCESS COMPLETE "
+sleep 3
+}
+banner
 installing_package
 banner
 file_permission
-
+banner
+updatekali
+# screen clear
+clear
 echo -e "${BLUE} Nethunter Installed successful"
-sleep 3 
+sleep 5
 clear 
