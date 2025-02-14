@@ -24,15 +24,23 @@ echo -e "${BLUE}  YouTube: ${RED}https://youtube.com/@termuxvibes"
 echo -e "${CYAN}=======================================${RESET}"
 sleep 2
 }
-banner
-termux-setup-storage 
+function installing_package () {
+pkg up -y
+pkg install -y wget curl openssh php
+}
+function file_permission () {
 mv kali.sh /data/data/com.termux/files/home/storage
 chmod +x /data/data/com.termux/files/home/storage/kali.sh
-bash /data/data/com.termux/files/home/storage/kali.sh
+./ /data/data/com.termux/files/home/storage/kali.sh
 rm -rf /data/data/com.termux/files/home/storage/kali.sh
 cd ..
 rm -rf kalifortermux 
+}
+# clear screen
+installing_package
 banner
+file_permission
+
 echo -e "${BLUE} Nethunter Installed successful"
 sleep 3 
 clear 
