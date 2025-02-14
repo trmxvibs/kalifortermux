@@ -28,6 +28,7 @@ function installing_package () {
 pkg up -y
 pkg install -y wget curl openssh php
 clear
+sleep 10
 }
 function file_permission () {
 termux-setup-storage
@@ -35,6 +36,7 @@ mv kali.sh /data/data/com.termux/files/home/storage
 chmod +x /data/data/com.termux/files/home/storage/kali.sh
 bash /data/data/com.termux/files/home/storage/kali.sh
 clear
+sleep 10
 }
 # clear screen
 installing_package
