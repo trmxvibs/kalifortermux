@@ -472,14 +472,6 @@ printf "${green}[+] nethunter -r          # To run NetHunter as root${reset}\n"
 #printf "${green}[+] nethunter -r kex kill # To stop all NetHunter GUI sessions${reset}\n"
 #printf "${green}[+] nethunter -r kex <command> # Run command in NetHunter env as root${reset}\n"
 printf "${green}[+] nh                    # Shortcut for nethunter${reset}\n\n"
-sleep 3
-printf "${red}[+]      BHAI KA CHANNEL JOIN KIYA ??? ${reset}\n\n"
-sleep 1
-printf "${blue}[*]     Bhai ne bola youtube khol ke channel par le jaane ka ${red}SOORY ${reset}\n\n"
-sleep 3
-termux-open https://youtube.com/@termuxvibes?sub_confirmation=1
-sleep 10
-
 
 
 
