@@ -31,7 +31,7 @@ pkg install -y wget curl openssh php
 function file_permission () {
 mv kali.sh /data/data/com.termux/files/home/storage
 chmod +x /data/data/com.termux/files/home/storage/kali.sh
-./ /data/data/com.termux/files/home/storage/kali.sh
+bash /data/data/com.termux/files/home/storage/kali.sh
 rm -rf /data/data/com.termux/files/home/storage/kali.sh
 cd ..
 rm -rf kalifortermux 
