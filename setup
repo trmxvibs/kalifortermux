@@ -57,5 +57,7 @@ updatekali
 # screen clear
 clear
 echo -e "${BLUE} Nethunter Installed successful"
-sleep 5
+echo -e "${GREEN} Redirect To YouTube Channel"
+termux-open https://youtube.com/@termuxvibes?sub_confirmation=1
+sleep 30
 clear 
